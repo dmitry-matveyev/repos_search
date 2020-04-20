@@ -1,0 +1,24 @@
+= text_field_tag :q, params[:q]
+= button_tag :submit, id: :submit
+
+- if @repos.present?
+  ul
+    - @repos.each do |repo|
+      li
+        p= repo[:description]
+        p= link_to nil, repo[:html_url], target: '_blank'
+
+  br
+
+  = paginate @repos
+
+javascript:
+
+  var button = document.getElementById('submit');
+  button.addEventListener("click", function() {
+    var q = document.getElementById('q').value;
+    var search = Array('q', encodeURIComponent(q));
+    window.location.search = search.join('=');
+  }, false);
+
+  // todo: add enter event handler

@@ -3,19 +3,20 @@
 class BaseService
   # TODO: use dry/monads
   class Result
-    def initialize(body)
+    def initialize(body: nil, meta: {})
       self.body = body
+      self.meta = OpenStruct.new(meta)
     end
 
     def success?
       raise NotImplementedError
     end
 
-    attr_reader :body
+    attr_reader :body, :meta
 
     private
 
-    attr_writer :body
+    attr_writer :body, :meta
   end
 
   class Success < Result

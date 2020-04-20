@@ -1,0 +1,11 @@
+{
+  "total_count": 100,
+  "incomplete_results": false,
+  "items": [
+    {
+      "id": 538746,
+      "html_url": "https://github.com/ruby/ruby",
+      "description": "The Ruby Programming Language [mirror]"
+    }
+  ]
+}

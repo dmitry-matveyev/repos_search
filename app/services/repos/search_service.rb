@@ -4,18 +4,25 @@ module Repos
   class SearchService < BaseService
     DEFAULT_PAGE = '1'
     DEFAULT_PER_PAGE = '10'
+    MAX_COUNT = 1000
     ATTRIBUTES = %i[description html_url].freeze
 
     def call
+      # TODO: add validation for page param (should not be more than MAX_COUNT/per_page)
       # TODO: move validation logic outside of current class
       if valid?
         # TODO: create a class for the repo object
-        result = items.map { |item| item.to_h.slice(*ATTRIBUTES) }
-        Success.new(result)
+        items = response.items.map { |item| item.to_h.slice(*ATTRIBUTES) }
+        total_count = [response.total_count, MAX_COUNT].min
+        meta = { total_count: total_count, page: page, per_page: per_page }
+
+        Success.new(body: items, meta: meta)
       else
-        # TODO: use I18n + active_model/validation
-        Failure.new(q: 'should be present')
+        # TODO: use I18n
+        Failure.new(body: 'Search string should be present')
       end
+    rescue Octokit::TooManyRequests
+      Failure.new(body: 'Too many requests')
     end
 
     private
@@ -32,11 +39,9 @@ module Repos
       q.present?
     end
 
-    def items
+    def response
       client = Octokit::Client.new
-
-      response = client.search_repositories(q, { page: page, per_page: per_page })
-      response.items
+      client.search_repositories(q, { page: page, per_page: per_page })
     end
   end
 end

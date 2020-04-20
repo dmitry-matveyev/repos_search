@@ -11,14 +11,14 @@ RSpec.describe Repos::SearchService do
     let(:params) { {} }
 
     it { is_expected.not_to be_success }
-    it { expect(body).to eq(q: 'should be present') }
+    it { expect(body).to eq('Search string should be present') }
   end
 
   context 'when no search string provided' do
     let(:params) { { q: '' } }
 
     it { is_expected.not_to be_success }
-    it { expect(body).to eq(q: 'should be present') }
+    it { expect(body).to eq('Search string should be present') }
   end
 
   context 'when search string provided' do
@@ -37,5 +37,8 @@ RSpec.describe Repos::SearchService do
                            { description: 'Ruby On Rails', html_url: 'https://github.com/rails/rails' }
                          ])
     end
+
+    # TODO: add test for meta params: pagination and page number is too big
+    # TODO: add test for too many request error
   end
 end
