@@ -6,6 +6,6 @@ Task description:
 
 Solution:
 
-`rspec` for tests
-`rails s` for web app
-`localhost:3000` in browser
+* `rspec` for tests
+* `rails s` for web app
+* `localhost:3000` in browser
