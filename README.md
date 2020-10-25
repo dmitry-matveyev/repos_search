@@ -1,9 +1,11 @@
 # README
 
-This is a Kata application.
+Task description:
 
-It allows to search public github repositories by a search string.
+> Make a simple web app where you can display public repositories from github based on search term provided. It can be a super simple page with input field on the top of it. Results can be shown right under the input. 
 
-Run test as `rspec`.
+Solution:
 
-Run web application as `rails s` and localhost:3000 in browser.
+`rspec` for tests
+`rails s` for web app
+`localhost:3000` in browser
